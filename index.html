@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roshan Prime Video - Private Cinema</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Segoe+UI:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        
+        header { background-color: #000000; padding: 15px 40px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: 'Montserrat', sans-serif; color: #00a8e1; margin: 0; font-size: 28px; font-weight: 900; letter-spacing: -1px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); cursor: pointer; }
+        .nav-links { display: flex; gap: 25px; font-size: 16px; font-weight: bold; color: #ccc; }
+        .nav-links span { cursor: pointer; transition: color 0.3s; }
+        .nav-links span:hover, .nav-links span.active { color: #ffffff; }
+        
+        /* PREMIUM NEON LIGHT SECTION */
+        .player-hero-section { display: none; position: relative; width: 100%; flex-direction: column; align-items: center; padding: 40px 0; background: linear-gradient(180deg, #050b0f 0%, #000000 100%); border-bottom: 1px solid #111; }
+        
+        /* THE NEON GLOW EFFECT */
+        .video-container { 
+            position: relative; 
+            width: 85%; 
+            max-width: 1200px; 
+            background: #000; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0px 10px 50px rgba(0, 168, 225, 0.3); /* Roshan Prime Blue Glow */
+            border: 2px solid #00a8e1; /* Neon Border */
+            aspect-ratio: 16/9; 
+        }
+        iframe { width: 100%; height: 100%; border: none; display: block; }
+        
+        .now-playing-title { margin-top: 25px; font-size: 28px; font-weight: bold; color: #fff; letter-spacing: 0.5px; text-align: center; }
+        
+        /* CLOUD BADGE STYLE */
+        .cloud-badge { display: inline-block; background: #00a8e1; color: #000; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 4px; margin-left: 12px; vertical-align: middle; }
+
+        #homePage { display: flex; flex-direction: column; align-items: center; padding: 50px 20px; animation: fadeIn 0.8s ease; }
+        .home-title { font-size: 24px; font-weight: bold; color: #8197a4; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        /* CLOUD POSTER (Tere Working Links Ke Sath) */
+        .vertical-poster { width: 300px; height: 450px; border-radius: 12px; background-image: url('https://lh3.googleusercontent.com/d/1CUSyV4POug8FYEZDY9DFQWic1h-2BLlj'); background-size: cover; background-position: center; border: 2px solid #333; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative; }
+        .vertical-poster:hover { transform: scale(1.05); border-color: #00a8e1; box-shadow: 0 15px 40px rgba(0, 168, 225, 0.4); } /* Hover pe blue glow */
+        
+        .click-prompt { position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #00a8e1; font-weight: bold; font-size: 16px; padding: 10px 20px; border-radius: 8px; border: 1px solid #00a8e1; width: max-content; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        #episodesSelectionArea { display: none; padding: 40px 50px; background-color: #000000; animation: fadeIn 0.5s ease; }
+        .show-header { display: flex; align-items: flex-end; gap: 30px; margin-bottom: 40px; }
+        .show-title-text h1 { font-size: 42px; font-weight: bold; margin: 0 0 10px 0; color: #fff; }
+        .show-title-text p { font-size: 16px; color: #ccc; max-width: 600px; margin: 0; line-height: 1.5; }
+        
+        .tabs-container { display: flex; gap: 15px; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        .tab-btn { background: none; border: none; color: #8197a4; font-size: 18px; font-weight: bold; cursor: pointer; padding: 10px 15px; transition: color 0.3s; }
+        .tab-btn:hover { color: #ffffff; }
+        .tab-btn.active { color: #ffffff; border-bottom: 2px solid #00a8e1; }
+
+        .episode-grid { display: flex; flex-direction: column; gap: 20px; padding-bottom: 40px; }
+        .episode-card { background-color: #0f171e; display: flex; align-items: center; padding: 15px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; border: 1px solid #333; box-shadow: 0 4px 10px rgba(0,0,0,0.6); }
+        .episode-card:hover { transform: scale(1.02); border: 1px solid #00a8e1; box-shadow: 0 10px 30px rgba(0, 168, 225, 0.2); } /* Hover pe blue border */
+        
+        /* CLOUD THUMBNAIL (Tere Working Links Ke Sath) */
+        .episode-thumb { width: 160px; height: 90px; border-radius: 6px; flex-shrink: 0; margin-right: 20px; border: 1px solid #333; background-image: url('https://lh3.googleusercontent.com/d/1XdT1DlUANSuXqTCMm4xBVtI0YOucnoOo'); background-size: cover; background-position: center; }
+        
+        .episode-info { display: flex; flex-direction: column; justify-content: center; flex-grow: 1; }
+        .ep-number { font-size: 12px; color: #00a8e1; font-weight: bold; text-transform: uppercase; }
+        .ep-title { font-size: 18px; font-weight: bold; color: #ffffff; margin-top: 5px; }
+        .ep-desc { font-size: 13px; color: #8197a4; margin-top: 5px; max-width: 80%; }
+        
+        /* Premium Blue Duration Badge */
+        .ep-duration { font-size: 12px; color: #00a8e1; margin-left: auto; flex-shrink: 0; font-weight: bold; background: rgba(0, 168, 225, 0.1); padding: 5px 10px; border-radius: 4px; }
+        
+        .back-btn { background: transparent; color: #8197a4; border: 1px solid #8197a4; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
+        .back-btn:hover { color: #fff; border-color: #fff; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" onclick="goHome()">Roshan Prime</div>
+        <div class="nav-links">
+            <span class="active" onclick="goHome()">Home</span>
+            <span>Movies</span>
+            <span>TV Shows</span>
+            <span>Live TV</span>
+        </div>
+    </header>
+
+    <div class="player-hero-section" id="playerSection">
+        <div class="video-container" id="videoContainer">
+            <iframe id="roshanPlayer" src="" allow="autoplay" allowfullscreen></iframe>
+        </div>
+        <div class="now-playing-title" id="nowPlayingText"></div>
+    </div>
+
+    <div id="homePage">
+        <div class="home-title">Roshan's Featured Series</div>
+        <div class="vertical-poster" onclick="revealEpisodes()">
+            <div class="click-prompt">▶ VIEW EPISODES</div>
+        </div>
+    </div>
+
+    <div id="episodesSelectionArea">
+        <button class="back-btn" onclick="goHome()">← Back to Home</button>
+        
+        <div class="show-header">
+            <div class="show-title-text">
+                <h1>Stranger Things: Tales 85 <span class="cloud-badge">CLOUD HD</span></h1>
+                <p>This is Roshan's special collection. Dive into the mystery of 1985 Hawkins and uncover the dark secrets of the Upside Down in this special cloud-streamed season.</p>
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <button class="tab-btn active">Season 1 (Tales 85)</button>
+        </div>
+
+        <div class="episode-grid" id="episodeGrid">
+            <script>
+                // GOOGLE DRIVE OFFICIAL PREVIEW LINKS
+                const episodesData = [
+                    { title: "The Beginning", id: "1yMbUip_qqnqrYvGg6yYZFYK9LTsZMLwS" },
+                    { title: "Echoes", id: "19WecZrDoxwt2O_bVMT9TOcRmxKVfJxNQ" },
+                    { title: "The Void", id: "1zOUcgwo2ViLjtALCulc5nCQUwp1tBX3w" },
+                    { title: "Trapdoor", id: "1fzLb8wIQii32vmdjzi4TtnGjDLL90AQ7" },
+                    { title: "Static", id: "1G6u-O0K_zgRGUBmMsprEyoH0zAMgl3rW" },
+                    { title: "Red Sky", id: "18J_KdiweA9Wmi1hbOUebehGoCMZ3Xg_h" },
+                    { title: "Deep End", id: "1Wth2cHYrsnOg-tJpYU3ChID5v1ALGlIw" },
+                    { title: "The Core", id: "1SMwQ8E5Z3gCGIPfxZkhGAxUNWSydRYDB" },
+                    { title: "Breach", id: "1js4Is19tSrmQqTnJ11gu4uIGIrxQgFPf" },
+                    { title: "Tales End", id: "1-NP_j1Eh2_dOsmIBGAexFHz3-Jh996Cx" }
+                ];
+                
+                const grid = document.getElementById('episodeGrid');
+                episodesData.forEach((ep, index) => {
+                    const i = index + 1;
+                    const embedUrl = `https://drive.google.com/file/d/${ep.id}/preview`;
+                    const epCard = document.createElement('div');
+                    epCard.className = 'episode-card';
+                    epCard.onclick = () => playEpisode(1, i, ep.title, embedUrl);
+                    
+                    epCard.innerHTML = `
+                        <div class="episode-thumb"></div>
+                        <div class="episode-info">
+                            <span class="ep-number">S1 E${i}</span>
+                            <span class="ep-title">${ep.title}</span>
+                            <span class="ep-desc">Part ${i} of Roshan's special Stranger Things collection.</span>
+                        </div>
+                        <span class="ep-duration">▶ Cloud Stream</span>
+                    `;
+                    grid.appendChild(epCard);
+                });
+            </script>
+        </div>
+    </div>
+
+    <script>
+        const iframePlayer = document.getElementById('roshanPlayer');
+        const playerSection = document.getElementById('playerSection'); 
+        const nowPlayingText = document.getElementById('nowPlayingText');
+
+        function revealEpisodes() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('episodesSelectionArea').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goHome() {
+            // Stop video by clearing iframe src
+            iframePlayer.src = "";
+            playerSection.style.display = 'none';
+            document.getElementById('episodesSelectionArea').style.display = 'none';
+            document.getElementById('homePage').style.display = 'flex';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function playEpisode(season, episode, title, url) {
+            playerSection.style.display = 'flex';
+            iframePlayer.src = url; // Loads the Google Drive Player
+            // Added Streaming Badge dynamically to the title
+            nowPlayingText.innerHTML = `Tales 85: S${season} E${episode} - ${title} <span class="cloud-badge">STREAMING</span>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
