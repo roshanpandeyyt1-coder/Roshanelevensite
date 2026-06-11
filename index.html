@@ -39,14 +39,15 @@
         #homePage { display: flex; flex-direction: column; align-items: center; padding: 50px 20px; animation: fadeIn 0.8s ease; }
         .home-title { font-size: 24px; font-weight: bold; color: #8197a4; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
         
-        /* POSTER CONTAINER: SABKO LINE MEIN RAKHNE KE LIYE */
+        /* POSTER CONTAINER FIXED: Space and Alignment */
         .poster-container {
             display: flex;
-            gap: 40px;
+            gap: 80px 40px; /* 80px Upar-Neeche gap, 40px Left-Right gap */
             justify-content: center;
             flex-wrap: wrap;
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px; /* 1200px se 1400px kar diya taaki 4 movies fit hon */
+            margin-bottom: 50px;
         }
 
         /* CLOUD POSTER */
@@ -113,6 +114,10 @@
             </div>
 
             <div class="vertical-poster" style="background-image: url('veronicalogo.jpg');" onclick="playSingleMovie('Veronica', 'https://drive.google.com/file/d/145S_P9L6Mpfy-ckCrnqtNOdRm7bKDJZh/preview')">
+                <div class="click-prompt">▶ PLAY MOVIE</div>
+            </div>
+
+            <div class="vertical-poster" style="background-image: url('kong.jpeg');" onclick="playSingleMovie('Godzilla Kong Friends', 'https://drive.google.com/file/d/1hJQavFUHlukscYpe3-CI8BFcfRLLi4YS/preview')">
                 <div class="click-prompt">▶ PLAY MOVIE</div>
             </div>
 
